@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  <title>UBM Viajes y Turismo</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-custom-light">
+    <div class="container-fluid d-flex justify-content-space-between align-items-center pl-3 pr-3">
+      <a href="{{ url_for('index') }}"><img src="{{ url_for('static', filename='logo-final-02.png') }}" alt="Logo"
+          class="img-fluid" style="max-width: 100px;"></a>
+
+      <div class="navbar-nav d-flex flex-row gap-3">
+
+        <a class="nav-link nav-link-custom" aria-current="page" href="{{ url_for('clientes') }}">Pasajeros</a>
+        <a class="nav-link nav-link-custom" href="{{ url_for('create') }}">Alta de Pasajero</a>
+        <a class="nav-link nav-link-custom" href="{{ url_for('clientes') }}">Buscar</a>
+
+      </div>
+    </div>
+  </nav>

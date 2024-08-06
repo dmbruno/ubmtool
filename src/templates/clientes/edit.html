@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container form-container">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title text-center">Editar Cliente</h5>
+                <form method="POST" enctype="multipart/form-data" action="{{ url_for('update', id=cliente[0]) }}">
+                    <div class="form-group">
+                        <label for="txtnombre" class="small">Nombre: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnombre" id="txtnombre" value="{{ cliente[1] }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtapellido" class="small">Apellido: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtapellido" id="txtapellido" value="{{ cliente[2] }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="txtfotoP" class="small">Foto de PASAPORTE: </label>
+                        {% if cliente[3] %}
+                            <div>
+                                <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="Foto Pasaporte" class="img-thumbnail" style="max-width: 150px;">
+                            </div>
+                        {% endif %}
+                        <input type="file" class="form-control-file small" name="txtfotoP" id="txtfotoP">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtfotoV" class="small">Foto de VISA: </label>
+                        {% if cliente[4] %}
+                            <div>
+                                <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="Foto Visa" class="img-thumbnail" style="max-width: 150px;">
+                            </div>
+                        {% endif %}
+                        <input type="file" class="form-control-file small" name="txtfotoV" id="txtfotoV">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtfotoD" class="small">Foto de DNI: </label>
+                        {% if cliente[5] %}
+                            <div>
+                                <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="Foto DNI" class="img-thumbnail" style="max-width: 150px;">
+                            </div>
+                        {% endif %}
+                        <input type="file" class="form-control-file small" name="txtfotoD" id="txtfotoD">
+                    </div>
+                    <button type="submit" class="btn btn-secondary btn-sm btn-block">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% include 'footer.html' %}
+</body>
+</html>
+
+
+

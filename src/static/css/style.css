@@ -1,0 +1,25 @@
+/* botones */
+.bg-custom-light {
+    background-color: rgb(106, 115, 142); /* Gris claro  537495*/
+  }
+
+
+
+
+  /* header */
+/* styles.css */
+.nav-link-custom {
+    color: white !important;  /* Texto blanco */
+    font-weight: bold;        /* Negrita */
+    font-style: italic;       /* Cursiva */
+    font-size: 16px;          /* Tamaño de fuente */
+    text-decoration: none;    /* Quitar el subrayado */
+    transition: transform 0.2s ease-in-out; /* Transición suave para transformaciones */
+}
+
+/* Efecto de hover para agrandar el texto */
+.nav-link-custom:hover {
+    transform: scale(1.1); /* Agranda el texto al 110% */
+}
+
+

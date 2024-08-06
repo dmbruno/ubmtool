@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UBM - Viajes y Turismo</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .logo {
+            margin-bottom: 30px;
+        }
+        .btn-custom {
+            background-color: black;
+            width: 200px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <img width="300px" src="{{ url_for('static', filename='logo-final-02.png') }}" alt="Logo de la Empresa" class="logo">
+        <div class="d-flex flex-row">
+            <button class="btn btn-secondary btn-custom" onclick="window.location.href='/create/'">Alta de Pasajero</button>
+            <button class="btn btn-secondary btn-custom" onclick="window.location.href='/clientes/'">Buscar Pasajero</button>
+            <button class="btn btn-secondary btn-custom" onclick="window.location.href='/clientes/'">Pasajeros</button>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% include 'footer.html' %}
+</body>
+</html>

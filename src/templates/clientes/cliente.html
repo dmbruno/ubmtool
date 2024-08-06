@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Cliente</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .image-container {
+            
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-container img {
+            
+            width: 90%; /* Adjust to 100% for full width */
+            max-height: 400px;
+            margin-bottom: 20px; /* Add some margin between images */
+        }
+
+        .container {
+            
+            max-width: 800px; /* Limit the width of the container for better visibility */
+            margin: 0 auto;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    <div class="container">
+        <div class="text-center mb-4">
+            <p class="mt-3"><strong>Documentos De:</strong> {{ cliente[2] }} {{ cliente[1] }}</p>
+            <h2>Documentos del Pasajero</h2>
+        </div>
+        <div class="image-container">
+            <p><strong>Foto PASAPORTE: </strong></p>
+            <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="pasaporte">
+            <p><strong>Foto VISA: </strong></p>
+            <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="dni">
+            <p><strong>Foto DNI: </strong></p>
+            <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="visa">
+        </div>
+        <div class="btn-container">
+            <a href="/clientes" class="btn btn-secondary mb-3">Atras</a>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
+
+
+
+
