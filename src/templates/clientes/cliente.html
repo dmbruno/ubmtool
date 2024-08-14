@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .image-container {
-            
             width: 100%;
             margin: 0 auto;
             display: flex;
@@ -16,17 +15,16 @@
         }
 
         .image-container img {
-            
-            width: 90%; /* Adjust to 100% for full width */
+            width: 90%; /* Ajustar al 100% para ancho completo */
             max-height: 400px;
-            margin-bottom: 20px; /* Add some margin between images */
+            margin-bottom: 20px; /* Agregar un margen entre imágenes */
         }
 
         .container {
-            
-            max-width: 800px; /* Limit the width of the container for better visibility */
+            max-width: 800px; /* Limitar el ancho del contenedor para mejor visibilidad */
             margin: 0 auto;
         }
+
         .btn-container {
             display: flex;
             justify-content: center;
@@ -44,9 +42,9 @@
             <p><strong>Foto PASAPORTE: </strong></p>
             <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="pasaporte">
             <p><strong>Foto VISA: </strong></p>
-            <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="dni">
+            <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="visa">
             <p><strong>Foto DNI: </strong></p>
-            <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="visa">
+            <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="dni">
         </div>
         <div class="btn-container">
             <a href="/clientes" class="btn btn-secondary mb-3">Atras</a>
@@ -55,6 +53,7 @@
     {% include 'footer.html' %}
 </body>
 </html>
+
 
 
 
