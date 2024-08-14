@@ -77,20 +77,23 @@ def create():
 
 @app.route('/store', methods=['POST'])
 def store():
-    _nombre = request.form['txtnombre']
-    _apellido = request.form['txtapellido']
-    _fotoP = request.files['txtfotoP']
-    _fotoV = request.files['txtfotoV']
-    _fotoD = request.files['txtfotoD']
+    _nombre = request.form.get('txtnombre')
+    _apellido = request.form.get('txtapellido')
 
-    print('este es el print', _fotoP, _fotoD, _fotoV)
+    # Obtener archivos, si están presentes
+    _fotoP = request.files.get('txtfotoP')
+    _fotoV = request.files.get('txtfotoV')
+    _fotoD = request.files.get('txtfotoD')
 
-    # Guardar las fotos en la carpeta src/uploads
-    fotoP_filename = save_file(_fotoP)
-    fotoV_filename = save_file(_fotoV)
-    fotoD_filename = save_file(_fotoD)
+    # Guardar las fotos en la carpeta src/uploads si se subieron
+    fotoP_filename = save_file(_fotoP) if _fotoP and _fotoP.filename else None
+    fotoV_filename = save_file(_fotoV) if _fotoV and _fotoV.filename else None
+    fotoD_filename = save_file(_fotoD) if _fotoD and _fotoD.filename else None
 
-    sql = "INSERT INTO clientes (nombre, apellido, fotopasaporte, fotovisa, fotodni) VALUES (%s, %s, %s, %s, %s);"
+    sql = """
+        INSERT INTO clientes (nombre, apellido, fotopasaporte, fotovisa, fotodni)
+        VALUES (%s, %s, %s, %s, %s);
+    """
     datos = (_nombre, _apellido, fotoP_filename, fotoV_filename, fotoD_filename)
 
     cur = mysql.connection.cursor()
