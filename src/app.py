@@ -13,14 +13,18 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'rootroot'
 app.config['MYSQL_DB'] = 'pasaportes'
 
-UPLOADS = os.path.join('src/uploads')
+if os.environ.get('ENV') == 'production':
+    UPLOADS = '/home/ubmviajes/pasaportesubm/ubmtool/src/uploads'
+else:
+    UPLOADS = os.path.join('src', 'uploads')
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOADS'] = UPLOADS
 
 
 @app.route('/fotodeusuario/<path:filename>')
 def uploads(filename):
-    return send_from_directory(os.path.join('uploads'), filename)
+    return send_from_directory(os.path.join('UPLOADS'), filename)
 
 
 
