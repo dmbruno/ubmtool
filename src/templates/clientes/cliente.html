@@ -41,21 +41,21 @@
         <div class="image-container">
             {% if cliente[3] %}
                 <p><strong>Foto PASAPORTE: </strong></p>
-                <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="pasaporte">
-            {% else %}
+                <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="pasaporte" class="img-fluid rounded-3 shadow-lg">
+                {% else %}
                 <p><strong>Foto PASAPORTE: </strong>No disponible</p>
             {% endif %}
             
             {% if cliente[4] %}
                 <p><strong>Foto VISA: </strong></p>
-                <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="visa">
+                <img src="{{ url_for('uploads', filename=cliente[4]) }}" class="img-fluid rounded-3 shadow-lg" alt="visa">
             {% else %}
                 <p><strong>Foto VISA: </strong>No disponible</p>
             {% endif %}
             
             {% if cliente[5] %}
                 <p><strong>Foto DNI: </strong></p>
-                <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="dni">
+                <img src="{{ url_for('uploads', filename=cliente[5]) }}" class="img-fluid rounded-3 shadow-lg" alt="dni">
             {% else %}
                 <p><strong>Foto DNI: </strong>No disponible</p>
             {% endif %}
