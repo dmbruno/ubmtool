@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
         }
     </style>
 </head>
+
 <body>
     {% include 'header.html' %}
     <div class="container form-container">
@@ -22,26 +24,53 @@
                 <form method="POST" enctype="multipart/form-data" action="{{ url_for('store') }}">
                     <div class="form-group">
                         <label for="txtnombre" class="small">Nombre: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtnombre" id="txtnombre" required>
+                        <input type="text" class="form-control form-control-sm" name="txtnombre" id="txtnombre"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="txtapellido" class="small">Apellido: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtapellido" id="txtapellido" required>
+                        <input type="text" class="form-control form-control-sm" name="txtapellido" id="txtapellido"
+                            required>
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoP" class="small">Foto de PASAPORTE: </label>
-                        <input type="file" class="form-control-file small" name="txtfotoP" id="txtfotoP" >
+                        <label for="txtfotoP" class="small">PASAPORTE ARGENTINO: </label>
+                        <input type="file" class="form-control-file small" name="txtfotoP" id="txtfotoP">
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoV" class="small">Foto de VISA: </label>
-                        <input type="file" class="form-control-file small" name="txtfotoV" id="txtfotoV" >
+                        <label for="txtfotoP2" class="small">PASAPORTE EUROPEO: </label>
+                        <input type="file" class="form-control-file small" name="txtfotoP2" id="txtfotoP2">
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoD" class="small">Foto de DNI: </label>
-                        <input type="file" class="form-control-file small" name="txtfotoD" id="txtfotoD" >
+                        <label for="txtfotoV" class="small">VISA: </label>
+                        <input type="file" class="form-control-file small" name="txtfotoV" id="txtfotoV">
                     </div>
+                    <div class="form-group">
+                        <label for="txtfotoD" class="small">DNI: </label>
+                        <input type="file" class="form-control-file small" name="txtfotoD" id="txtfotoD">
+                    </div>
+                    <div class="form-group d-flex flex-direction-row justify-content-center gap-4">
+                        <label for="txtcuil" class="small">CUIL: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtcuil" id="txtcuil" >
+                    </div>
+                    <div class="form-group">
+                        <label for="txtnumfrecuente1" class="small">Número Frecuente 1: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente1"
+                            id="txtnumfrecuente1">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtnumfrecuente2" class="small">Número Frecuente 2: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente2"
+                            id="txtnumfrecuente2">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtnumfrecuente3" class="small">Número Frecuente 3: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente3"
+                            id="txtnumfrecuente3">
+                    </div>
+
                     <button type="submit" class="btn btn-secondary btn-sm btn-block">Agregar Cliente</button>
                 </form>
+
             </div>
         </div>
     </div>
@@ -50,5 +79,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {% include 'footer.html' %}
 </body>
-</html>
 
+</html>

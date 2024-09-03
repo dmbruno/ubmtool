@@ -53,6 +53,8 @@
                         <td><a class="text-decoration-none" href="{{ url_for('ver_cliente', id=cliente[0]) }}">{{cliente[0]}}</a></td> 
                         <td>{{ cliente[1] }}</td>
                         <td>{{ cliente[2] }}</td>
+                        
+                        
                         <td>
                             <button class="btn btn-secondary btn-sm"onclick="editarCliente({{ cliente[0] }})">Editar</button>
                             <button class="btn btn-danger btn-sm"onclick="eliminarCliente({{ cliente[0] }})">Eliminar</button>

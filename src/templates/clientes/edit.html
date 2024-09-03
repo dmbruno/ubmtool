@@ -28,8 +28,9 @@
                         <label for="txtapellido" class="small">Apellido: </label>
                         <input type="text" class="form-control form-control-sm" name="txtapellido" id="txtapellido" value="{{ cliente[2] }}" required>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="txtfotoP" class="small">Foto de PASAPORTE: </label>
+                        <label for="txtfotoP" class="small">Foto Pasaporte Argentino: </label>
                         {% if cliente[3] %}
                             <div>
                                 <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="Foto Pasaporte" class="img-thumbnail" style="max-width: 150px;">
@@ -38,7 +39,16 @@
                         <input type="file" class="form-control-file small" name="txtfotoP" id="txtfotoP">
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoV" class="small">Foto de VISA: </label>
+                        <label for="txtfotoP2" class="small">Foto Pasaporte Europeo: </label>
+                        {% if cliente[7] %}
+                            <div>
+                                <img src="{{ url_for('uploads', filename=cliente[7]) }}" alt="Foto 2do Pasaporte" class="img-thumbnail" style="max-width: 150px;">
+                            </div>
+                        {% endif %}
+                        <input type="file" class="form-control-file small" name="txtfotoP2" id="txtfotoP2">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtfotoV" class="small">Foto Visa: </label>
                         {% if cliente[4] %}
                             <div>
                                 <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="Foto Visa" class="img-thumbnail" style="max-width: 150px;">
@@ -47,7 +57,7 @@
                         <input type="file" class="form-control-file small" name="txtfotoV" id="txtfotoV">
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoD" class="small">Foto de DNI: </label>
+                        <label for="txtfotoD" class="small">Foto DNI: </label>
                         {% if cliente[5] %}
                             <div>
                                 <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="Foto DNI" class="img-thumbnail" style="max-width: 150px;">
@@ -55,6 +65,24 @@
                         {% endif %}
                         <input type="file" class="form-control-file small" name="txtfotoD" id="txtfotoD">
                     </div>
+                    <div class="form-group">
+                        <label for="txtcuil" class="small">CUIL: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtcuil" id="txtcuil" value="{{ cliente[6] }}" required>
+                    </div>
+                    <!-- Números frecuentes -->
+                    <div class="form-group">
+                        <label for="txtnumfrecuente1" class="small">Número Frecuente 1: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente1" id="txtnumfrecuente1" value="{{ cliente[8] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtnumfrecuente2" class="small">Número Frecuente 2: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente2" id="txtnumfrecuente2" value="{{ cliente[9] }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="txtnumfrecuente3" class="small">Número Frecuente 3: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente3" id="txtnumfrecuente3" value="{{ cliente[10] }}">
+                    </div>
+
                     <button type="submit" class="btn btn-secondary btn-sm btn-block">Guardar Cambios</button>
                 </form>
             </div>
@@ -66,6 +94,7 @@
     {% include 'footer.html' %}
 </body>
 </html>
+
 
 
 

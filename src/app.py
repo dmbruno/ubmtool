@@ -16,6 +16,7 @@ app.config['MYSQL_DB'] = 'pasaportes'
 app.config['UPLOADS'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
 
 
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 
@@ -74,34 +75,43 @@ def create():
     return render_template('clientes/create.html')
 
 
-
 @app.route('/store', methods=['POST'])
 def store():
+    # Capturar los campos de texto
     _nombre = request.form.get('txtnombre')
     _apellido = request.form.get('txtapellido')
+    _cuil = request.form.get('txtcuil')
+    _numfrecuente1 = request.form.get('txtnumfrecuente1')  # Campos de números frecuentes
+    _numfrecuente2 = request.form.get('txtnumfrecuente2')
+    _numfrecuente3 = request.form.get('txtnumfrecuente3')
 
-    # Obtener archivos, si están presentes
-    _fotoP = request.files.get('txtfotoP')
-    _fotoV = request.files.get('txtfotoV')
-    _fotoD = request.files.get('txtfotoD')
+    # Capturar archivos
+    _fotoP = request.files.get('txtfotoP')  # Foto de pasaporte argentino
+    _fotoP2 = request.files.get('txtfotoP2')  # Foto de pasaporte europeo
+    _fotoV = request.files.get('txtfotoV')   # Foto de visa
+    _fotoD = request.files.get('txtfotoD')   # Foto de DNI
 
-    # Guardar las fotos en la carpeta src/uploads si se subieron
+    # Guardar archivos y obtener nombres
     fotoP_filename = save_file(_fotoP) if _fotoP and _fotoP.filename else None
+    fotoP2_filename = save_file(_fotoP2) if _fotoP2 and _fotoP2.filename else None
     fotoV_filename = save_file(_fotoV) if _fotoV and _fotoV.filename else None
     fotoD_filename = save_file(_fotoD) if _fotoD and _fotoD.filename else None
 
-    sql = """
-        INSERT INTO clientes (nombre, apellido, fotopasaporte, fotovisa, fotodni)
-        VALUES (%s, %s, %s, %s, %s);
-    """
-    datos = (_nombre, _apellido, fotoP_filename, fotoV_filename, fotoD_filename)
-
+    # Insertar datos en la base de datos
     cur = mysql.connection.cursor()
-    cur.execute(sql, datos)
+    sql = """
+        INSERT INTO clientes (nombre, apellido, cuil, numfrecuente1, numfrecuente2, numfrecuente3,
+                              fotopasaporte, fotopasaporte2, fotovisa, fotodni)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+    """
+    cur.execute(sql, (_nombre, _apellido, _cuil, _numfrecuente1, _numfrecuente2, _numfrecuente3,
+                       fotoP_filename, fotoP2_filename, fotoV_filename, fotoD_filename))
+
     mysql.connection.commit()
     cur.close()
 
     return redirect('/clientes')
+
 
 def save_file(file):
     if file and file.filename:
@@ -115,6 +125,10 @@ def save_file(file):
         file.save(upload_path)
         return filename
     return None
+
+
+
+
 
 @app.route('/search/', methods=['GET', 'POST'])
 def search():
@@ -134,23 +148,27 @@ def search():
     return render_template('clientes/search.html')
 
 
-
-
 @app.route('/eliminar_cliente/<int:id>', methods=['POST'])
 def eliminar_cliente(id):
     cur = mysql.connection.cursor()
-    sql_select = "SELECT fotopasaporte, fotovisa, fotodni FROM clientes WHERE id = %s;"
+    
+    # Seleccionar archivos y datos relacionados con el cliente
+    sql_select = "SELECT fotopasaporte, fotopasaporte2, fotovisa, fotodni FROM clientes WHERE id = %s;"
     cur.execute(sql_select, (id,))
     cliente = cur.fetchone()
-    if cliente:
-        fotopasaporte, fotovisa, fotodni = cliente
 
+    if cliente:
+        fotopasaporte, fotopasaporte2, fotovisa, fotodni = cliente
+
+        # Eliminar los registros del cliente en la base de datos
         sql_delete = "DELETE FROM clientes WHERE id = %s;"
         cur.execute(sql_delete, (id,))
         mysql.connection.commit()
         cur.close()
 
+        # Eliminar archivos asociados al cliente
         delete_file(fotopasaporte)
+        delete_file(fotopasaporte2)
         delete_file(fotovisa)
         delete_file(fotodni)
 
@@ -165,6 +183,9 @@ def delete_file(filename):
         if os.path.exists(filepath):
             os.remove(filepath)
 
+
+
+
 @app.route('/edit/<int:id>')
 def edit(id):
     cur = mysql.connection.cursor()
@@ -174,51 +195,80 @@ def edit(id):
     cur.close()
     return render_template('clientes/edit.html', cliente=cliente)
 
+
+
+
 @app.route('/update/<int:id>', methods=['POST'])
 def update(id):
-    _nombre = request.form['txtnombre']
-    _apellido = request.form['txtapellido']
-    _fotoP = request.files['txtfotoP']
-    _fotoV = request.files['txtfotoV']
-    _fotoD = request.files['txtfotoD']
+    nombre = request.form['txtnombre']
+    apellido = request.form['txtapellido']
+    cuil = request.form['txtcuil']
+    numfrecuente1 = request.form['txtnumfrecuente1']
+    numfrecuente2 = request.form['txtnumfrecuente2']
+    numfrecuente3 = request.form['txtnumfrecuente3']
+
+    fotopasaporte = request.files.get('txtfotoP')
+    fotopasaporte2 = request.files.get('txtfotoP2')
+    fotovisa = request.files.get('txtfotoV')
+    fotodni = request.files.get('txtfotoD')
 
     cur = mysql.connection.cursor()
-    sql = "UPDATE clientes SET nombre = %s, apellido = %s WHERE id = %s;"
-    cur.execute(sql, (_nombre, _apellido, id))
 
-    # Obtener los nombres de archivo actuales
-    cur.execute("SELECT fotopasaporte, fotovisa, fotodni FROM clientes WHERE id = %s;", (id,))
-    cliente = cur.fetchone()
+    # Consulta para obtener la información actual del cliente
+    cur.execute('SELECT fotopasaporte, fotopasaporte2, fotovisa, fotodni FROM clientes WHERE id = %s', (id,))
+    existing_files = cur.fetchone()
 
-    if cliente:
-        fotopasaporte, fotovisa, fotodni = cliente
+    # Reemplazar los archivos solo si se han cargado nuevos
+    fotopasaporte_path = fotopasaporte.filename if fotopasaporte else existing_files[0]
+    fotopasaporte2_path = fotopasaporte2.filename if fotopasaporte2 else existing_files[1]
+    fotovisa_path = fotovisa.filename if fotovisa else existing_files[2]
+    fotodni_path = fotodni.filename if fotodni else existing_files[3]
 
-        # Eliminar los archivos antiguos si se van a reemplazar
-        if _fotoP and _fotoP.filename:
-            delete_file(fotopasaporte)
-            fotoP_filename = save_file(_fotoP)
-            cur.execute("UPDATE clientes SET fotopasaporte = %s WHERE id = %s;", (fotoP_filename, id))
-        elif fotopasaporte:
-            cur.execute("UPDATE clientes SET fotopasaporte = %s WHERE id = %s;", (fotopasaporte, id))
+    # Consulta para actualizar la información del cliente
+    sql_update = """
+    UPDATE clientes
+    SET nombre = %s,
+        apellido = %s,
+        fotopasaporte = %s,
+        fotopasaporte2 = %s,
+        fotovisa = %s,
+        fotodni = %s,
+        cuil = %s,
+        numfrecuente1 = %s,
+        numfrecuente2 = %s,
+        numfrecuente3 = %s
+    WHERE id = %s;
+    """
 
-        if _fotoV and _fotoV.filename:
-            delete_file(fotovisa)
-            fotoV_filename = save_file(_fotoV)
-            cur.execute("UPDATE clientes SET fotovisa = %s WHERE id = %s;", (fotoV_filename, id))
-        elif fotovisa:
-            cur.execute("UPDATE clientes SET fotovisa = %s WHERE id = %s;", (fotovisa, id))
-
-        if _fotoD and _fotoD.filename:
-            delete_file(fotodni)
-            fotoD_filename = save_file(_fotoD)
-            cur.execute("UPDATE clientes SET fotodni = %s WHERE id = %s;", (fotoD_filename, id))
-        elif fotodni:
-            cur.execute("UPDATE clientes SET fotodni = %s WHERE id = %s;", (fotodni, id))
+    # Actualizar los datos del cliente en la base de datos
+    cur.execute(sql_update, (
+        nombre,
+        apellido,
+        fotopasaporte_path,
+        fotopasaporte2_path,
+        fotovisa_path,
+        fotodni_path,
+        cuil,
+        numfrecuente1,
+        numfrecuente2,
+        numfrecuente3,
+        id
+    ))
 
     mysql.connection.commit()
-    cur.close()
-    return redirect('/clientes')
 
+    # Guardar los archivos en el servidor solo si se han cargado nuevos
+    if fotopasaporte:
+        fotopasaporte.save(os.path.join(app.config['UPLOADS'], fotopasaporte.filename))
+    if fotopasaporte2:
+        fotopasaporte2.save(os.path.join(app.config['UPLOADS'], fotopasaporte2.filename))
+    if fotovisa:
+        fotovisa.save(os.path.join(app.config['UPLOADS'], fotovisa.filename))
+    if fotodni:
+        fotodni.save(os.path.join(app.config['UPLOADS'], fotodni.filename))
+
+    cur.close()
+    return redirect(url_for('clientes'))
 
 
 

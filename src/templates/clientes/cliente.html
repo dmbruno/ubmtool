@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,60 +16,77 @@
         }
 
         .image-container img {
-            width: 90%; /* Ajustar al 100% para ancho completo */
+            width: auto;
+            max-width: 100%;
             max-height: 400px;
-            margin-bottom: 20px; /* Agregar un margen entre imágenes */
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            background-color: #f8f9fa;
         }
 
-        .container {
-            max-width: 800px; /* Limitar el ancho del contenedor para mejor visibilidad */
-            margin: 0 auto;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
+        .client-info-card {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 0.375rem;
+            padding: 1.5rem;
+            box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body>
     {% include 'header.html' %}
     <div class="container">
         <div class="text-center mb-4">
-            <p class="mt-3"><strong>Documentos De:</strong> {{ cliente[2] }} {{ cliente[1] }}</p>
-            <h2>Documentos del Pasajero</h2>
+            <h2>Detalles del Cliente</h2>
         </div>
-        <div class="image-container">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="client-info-card">
+                    <p><strong>Nombre:</strong> {{ cliente[1] }}</p>
+                    <p><strong>Apellido:</strong> {{ cliente[2] }}</p>
+                    <p><strong>CUIL:</strong> {{ cliente[6] }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="client-info-card">
+                    <p><strong>Número Frecuente 1:</strong> {{ cliente[8] }}</p>
+                    <p><strong>Número Frecuente 2:</strong> {{ cliente[9] }}</p>
+                    <p><strong>Número Frecuente 3:</strong> {{ cliente[10] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="image-container my-4">
             {% if cliente[3] %}
-                <p><strong>Foto PASAPORTE: </strong></p>
-                <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="pasaporte" class="img-fluid rounded-3 shadow-lg">
-                {% else %}
-                <p><strong>Foto PASAPORTE: </strong>No disponible</p>
+            <h4>PASAPORTE ARGENTINO</h4>
+            <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="Pasaporte Argentino">
             {% endif %}
-            
+            {% if cliente[7] %}
+            <h4>PASAPORTE EUROPEO</h4>
+            <img src="{{ url_for('uploads', filename=cliente[7]) }}" alt="Pasaporte Europeo">
+            {% endif %}
             {% if cliente[4] %}
-                <p><strong>Foto VISA: </strong></p>
-                <img src="{{ url_for('uploads', filename=cliente[4]) }}" class="img-fluid rounded-3 shadow-lg" alt="visa">
-            {% else %}
-                <p><strong>Foto VISA: </strong>No disponible</p>
+            <h4>VISA</h4>
+            <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="Visa">
             {% endif %}
-            
             {% if cliente[5] %}
-                <p><strong>Foto DNI: </strong></p>
-                <img src="{{ url_for('uploads', filename=cliente[5]) }}" class="img-fluid rounded-3 shadow-lg" alt="dni">
-            {% else %}
-                <p><strong>Foto DNI: </strong>No disponible</p>
+            <h4>DNI</h4>
+            <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="DNI">
             {% endif %}
         </div>
-        <div class="btn-container">
-            <a href="/clientes" class="btn btn-secondary mb-3">Atras</a>
+
+        <div class="text-center m-4">
+            <a href="{{ url_for('clientes') }}" class="btn btn-secondary">Atrás</a>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {% include 'footer.html' %}
 </body>
+
 </html>
-
-
-
-
 
