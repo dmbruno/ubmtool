@@ -1,76 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes UBM</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lilita+One&display=swap" rel="stylesheet">
+
     <style>
-         .table td, .table th {
-            vertical-align: middle; /* Sobrescribe la clase de Bootstrap */
+        /* General body styling */
+        body {
+            
+            background: url("{{ url_for('static', filename='fondoUbm.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            /* Neutral color for text */
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styling */
+        header {
+            
+            width: 100%;
+            background-color: rgba(61, 61, 61, 0.5);
+            /* Semi-transparent background for readability */
+            color: #fff;
+            padding-top: 15px;
+            padding-right: 15px;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 1.5em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+            position: relative;
+        }
+        
+
+        .tituloHeader{
+            font-family: "bebas neue", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 60px;
+        }
+
+        /* Main content container */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Slightly transparent for blending with background */
+            padding: 40px;
+            border-radius: 10px;
+            /* Rounded corners for a modern touch */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+            margin-top: 30px;
+        }
+
+        /* Table Styling */
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background-color: rgba(61, 61, 61, 0.9);
+            color: white;
+        }
+
+        .table tbody tr {
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: background-color 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(61, 61, 61, 0.1);
+        }
+
+        /* Search Button Styling */
+        .btn-search {
+            
+            width: 50%;
+            margin: 20px auto;
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-style: normal;
+            /* Centramos el botón */
+            display: block;
+            background-color: transparent;
+            border: 1px solid rgb(61, 61, 61);
+            color: rgb(61, 61, 61);
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-search:hover {
+            background-color: rgb(61, 61, 61);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Button Styling for Table Actions */
+        .btn-secondary,
+        .btn-danger {
+            margin-right: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+        
+
+        .tituloClientes {
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+        }
+        .apellidoTitulo{
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-style: normal;
+            text-align: center;
+        }
+        .text-center{
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-style: normal;
         }
     </style>
 </head>
-<body>
-    {% include 'header.html' %}
-    <div class=" mt-5">
-        
-        <h1 class="text-center mb-4">Clientes UBM Viajes y Turismo</h1>
 
-        <div class="container">
-            <form action="{{ url_for('clientes') }}" method="post">
-                <div class="form-group">
-                    <label for="apellido">Apellido del Cliente:</label>
-                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Ingrese el apellido del cliente">
-                </div>
-                <button type="submit" class="btn btn-secondary btn-block">Buscar</button>
-            </form>
-        </div>
+<body>
+    <!-- Header Section with Logo -->
+    <header>
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='logo-final-02.png') }}" alt="Logo de la Empresa"
+                class="header-logo">
+        </a>
+        <p class="tituloHeader">
+            UBM - Viajes y Turismo
+        </p>
+    </header>
+
+    <div class="container mt-5">
+        <h1 class="tituloClientes">Clientes</h1>
+
+        <!-- Search Form Section -->
+        <form action="{{ url_for('clientes') }}" method="post">
+            <div class="form-group">
+                <label for="apellido" class="apellidoTitulo">Apellido del Cliente:</label>
+                <input type="text" class="form-control" id="apellido" name="apellido"
+                    placeholder="Ingrese el apellido del cliente">
+            </div>
+            <button type="submit" class="btn btn-search">Buscar</button>
+        </form>
+
+        <!-- Alert if no clients found -->
         {% if not clientes %}
-        <div>
-            <div class="container alert alert-danger text-center mt-4" role="alert">
-                Pasajero no encontrado
-            </div>
-            <div class="container d-flex justify-content-center">
-                <a href="{{ url_for('clientes') }}" class="btn btn-secondary btn-sm ml-2">Ver todos los clientes</a>
-            </div>
+        <div class="alert alert-danger text-center mt-4" role="alert">
+            Pasajero no encontrado
+        </div>
+        <div class="d-flex justify-content-center">
+            <a href="{{ url_for('clientes') }}" class="btn btn-custom btn-sm">Ver todos los clientes</a>
         </div>
         {% else %}
-        <div class="container">
-            <table class="table table-striped table-bordered mt-3">
-                <thead class="thead-dark">
-                    <tr class="text-center">
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                {% endif %}
-                <tbody>
-                    {% for cliente in clientes %}
-                    <tr class="text-center">
-                        <td><a class="text-decoration-none" href="{{ url_for('ver_cliente', id=cliente[0]) }}">{{cliente[0]}}</a></td> 
-                        <td>{{ cliente[1] }}</td>
-                        <td>{{ cliente[2] }}</td>
-                        
-                        
-                        <td>
-                            <button class="btn btn-secondary btn-sm"onclick="editarCliente({{ cliente[0] }})">Editar</button>
-                            <button class="btn btn-danger btn-sm"onclick="eliminarCliente({{ cliente[0] }})">Eliminar</button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {% include 'footer.html' %}
+        <!-- Table to display clients -->
+        <table class="table table-striped table-bordered mt-3">
+            <thead>
+                <tr class="text-center">
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr class="text-center">
+                    <td><a class="text-decoration-none" href="{{ url_for('ver_cliente', id=cliente[0]) }}">{{ cliente[0]
+                            }}</a></td>
+                    <td>{{ cliente[1] }}</td>
+                    <td>{{ cliente[2] }}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm"
+                            onclick="editarCliente('{{ cliente[0] }}')">Editar</button>
+                        <button class="btn btn-danger btn-sm"
+                            onclick="eliminarCliente('{{ cliente[0] }}')">Eliminar</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
+
 </html>
-
-

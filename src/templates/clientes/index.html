@@ -1,41 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UBM - Viajes y Turismo</title>
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lilita+One&display=swap" rel="stylesheet">
+    
     <style>
-        .container {
-            text-align: center;
-            margin-top: 50px;
+        /* General body styling */
+        body {
+
+            background: url("{{ url_for('static', filename='fondoUbm.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            /* Neutral color for text */
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            background-color: rgba(61, 61, 61, 0.4);
+            /* Semi-transparent background for readability */
+            color: white;
+            padding-top: 15px;
+            padding-right: 15px;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 1.5em;
+
+            font-family: "bebas neue", serif;
+            font-weight: 400;
+            font-style: normal;
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+            position: relative;
+
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 60px;
+
+        }
+
+
+        /* Main content container */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Slightly transparent for blending with background */
+            padding: 40px;
+            border-radius: 10px;
+            /* Rounded corners for a modern touch */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+            text-align: center;
+        }
+
+        /* Logo styling in container */
         .logo {
             margin-bottom: 30px;
-        }
-        .btn-custom {
-            background-color: black;
             width: 200px;
-            margin: 10px;
+            /* Reduced logo size for better balance */
+        }
+
+        /* Button styling */
+        .btn-custom {
+            background-color: rgb(61, 61, 61);
+            /* Same color as in header for consistency */
+            color: white;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-style: normal;
+
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Subtle shadow for button lift */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Button hover effect */
+        .btn-custom:hover {
+            background-color: #0056b3;
+            /* Darker shade on hover */
+            transform: translateY(-2px);
+            /* Subtle upward lift on hover */
+        }
+
+        /* Button active effect for user feedback */
+        .btn-custom:active {
+            background-color: #004494;
+            transform: translateY(0);
+        }
+
+        /* Flex container for buttons */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            /* Stack buttons vertically for a minimalist look */
+            gap: 15px;
+            /* Spacing between buttons for better visibility */
         }
     </style>
 </head>
+
 <body>
-    {% include 'header.html' %}
-    <div class="container">
-        <img width="300px" src="{{ url_for('static', filename='logo-final-02.png') }}" alt="Logo de la Empresa" class="logo">
-        <div class="d-flex flex-row justify-content-center">
-            <button class="btn btn-secondary btn-custom" onclick="window.location.href='/create/'">Alta de Pasajero</button>
-            <button class="btn btn-secondary btn-custom" onclick="window.location.href='/clientes/'">Buscar Pasajero</button>
-            <button class="btn btn-secondary btn-custom" onclick="window.location.href='/clientes/'">Pasajeros</button>
+    <!-- Header Section with Logo -->
+    <header>
+        <img src="{{ url_for('static', filename='logo-final-02.png') }}" alt="Logo de la Empresa" class="header-logo">
+        <p class="titulo">
+            UBM - Viajes y Turismo
+        </p>
+    </header>
+
+    <!-- Main Content Section -->
+    <div class="main-container">
+        <div class="container">
+            <!-- Updated logo styling with rounded corners for more visual interest -->
+            <img src="{{ url_for('static', filename='logo-final-02.png') }}" alt="Logo de la Empresa" class="logo">
+
+            <!-- Modern button layout -->
+            <div class="button-container">
+                <button class="btn btn-custom" onclick="window.location.href='/clientes/'">Pasajeros</button>
+                <button class="btn btn-custom" onclick="window.location.href='/clientes/'">Buscar Pasajero</button>
+                <button class="btn btn-custom" onclick="window.location.href='/create/'">Alta de Pasajero</button>
+            </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {% include 'footer.html' %}
 </body>
+
 </html>

@@ -1,100 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Cliente</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spicy+Rice&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lilita+One&display=swap" rel="stylesheet">
     <style>
+        /* General body styling */
+        body {
+
+            background: url("{{ url_for('static', filename='fondoUbm.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            /* Neutral color for text */
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styling */
+        header {
+            width: 100%;
+            background-color: rgba(61, 61, 61, 0.5);
+            /* Semi-transparent background for readability */
+            color: #fff;
+            padding-top: 15px;
+            padding-right: 15px;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 1.5em;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+            position: relative;
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            width: 60px;
+        }
+
+        /* Form container styling */
         .form-container {
             max-width: 600px;
-            margin: 0 auto;
-            margin-top: 20px;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Button styling */
+        .btn-secondary {
+            background-color: rgb(61, 61, 61);
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Image styling */
+        .img-thumbnail {
+            max-width: 150px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            /* Rounded corners for a modern look */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+        }
+
+        .titulo {
+            font-family: "bebas neue", serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .card-title {
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-size: 40px;
+            font-style: normal;
+        }
+
+        .label {
+            font-family: "Audiowide", serif;
+            font-weight: 400;
+            font-style: normal;
         }
     </style>
 </head>
+
 <body>
-    {% include 'header.html' %}
+    <!-- Header Section with Logo -->
+    <header>
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename='logo-final-02.png') }}" alt="Logo de la Empresa"
+                class="header-logo">
+        </a>
+        <p class="titulo">
+            UBM - Viajes y Turismo
+        </p>
+    </header>
+
     <div class="container form-container">
-        <div class="card">
+        <div class="card border-0 shadow">
             <div class="card-body">
-                <h5 class="card-title text-center">Editar Cliente</h5>
+                <h5 class="card-title text-center mb-4">Editar Cliente</h5>
                 <form method="POST" enctype="multipart/form-data" action="{{ url_for('update', id=cliente[0]) }}">
                     <div class="form-group">
-                        <label for="txtnombre" class="small">Nombre: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtnombre" id="txtnombre" value="{{ cliente[1] }}" required>
+                        <label for="txtnombre" class="small label">Nombre: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnombre" id="txtnombre"
+                            value="{{ cliente[1] }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="txtapellido" class="small">Apellido: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtapellido" id="txtapellido" value="{{ cliente[2] }}" required>
+                        <label for="txtapellido" class="small label">Apellido: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtapellido" id="txtapellido"
+                            value="{{ cliente[2] }}" required>
                     </div>
-                    
+
                     <div class="form-group">
-                        <label for="txtfotoP" class="small">Foto Pasaporte Argentino: </label>
+                        <label for="txtfotoP" class="small label">Foto Pasaporte Argentino: </label>
                         {% if cliente[3] %}
-                            <div>
-                                <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="Foto Pasaporte" class="img-thumbnail" style="max-width: 150px;">
-                            </div>
+                        <div>
+                            <img src="{{ url_for('uploads', filename=cliente[3]) }}" alt="Foto Pasaporte"
+                                class="img-thumbnail">
+                        </div>
                         {% endif %}
                         <input type="file" class="form-control-file small" name="txtfotoP" id="txtfotoP">
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoP2" class="small">Foto Pasaporte Europeo: </label>
+                        <label for="txtfotoP2" class="small label">Foto Pasaporte Europeo: </label>
                         {% if cliente[7] %}
-                            <div>
-                                <img src="{{ url_for('uploads', filename=cliente[7]) }}" alt="Foto 2do Pasaporte" class="img-thumbnail" style="max-width: 150px;">
-                            </div>
+                        <div>
+                            <img src="{{ url_for('uploads', filename=cliente[7]) }}" alt="Foto 2do Pasaporte"
+                                class="img-thumbnail">
+                        </div>
                         {% endif %}
                         <input type="file" class="form-control-file small" name="txtfotoP2" id="txtfotoP2">
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoV" class="small">Foto Visa: </label>
+                        <label for="txtfotoV" class="small label">Foto Visa: </label>
                         {% if cliente[4] %}
-                            <div>
-                                <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="Foto Visa" class="img-thumbnail" style="max-width: 150px;">
-                            </div>
+                        <div>
+                            <img src="{{ url_for('uploads', filename=cliente[4]) }}" alt="Foto Visa"
+                                class="img-thumbnail">
+                        </div>
                         {% endif %}
                         <input type="file" class="form-control-file small" name="txtfotoV" id="txtfotoV">
                     </div>
                     <div class="form-group">
-                        <label for="txtfotoD" class="small">Foto DNI: </label>
+                        <label for="txtfotoD" class="small label">Foto DNI: </label>
                         {% if cliente[5] %}
-                            <div>
-                                <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="Foto DNI" class="img-thumbnail" style="max-width: 150px;">
-                            </div>
+                        <div>
+                            <img src="{{ url_for('uploads', filename=cliente[5]) }}" alt="Foto DNI"
+                                class="img-thumbnail">
+                        </div>
                         {% endif %}
                         <input type="file" class="form-control-file small" name="txtfotoD" id="txtfotoD">
                     </div>
                     <div class="form-group">
-                        <label for="txtcuil" class="small">CUIL: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtcuil" id="txtcuil" value="{{ cliente[6] }}" required>
+                        <label for="txtcuil" class="small label">CUIL: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtcuil" id="txtcuil"
+                            value="{{ cliente[6] }}" required>
                     </div>
                     <!-- Números frecuentes -->
                     <div class="form-group">
-                        <label for="txtnumfrecuente1" class="small">Número Frecuente 1: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente1" id="txtnumfrecuente1" value="{{ cliente[8] }}">
+                        <label for="txtnumfrecuente1" class="small label">Número Frecuente 1: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente1"
+                            id="txtnumfrecuente1" value="{{ cliente[8] }}">
                     </div>
                     <div class="form-group">
-                        <label for="txtnumfrecuente2" class="small">Número Frecuente 2: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente2" id="txtnumfrecuente2" value="{{ cliente[9] }}">
+                        <label for="txtnumfrecuente2" class="small label">Número Frecuente 2: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente2"
+                            id="txtnumfrecuente2" value="{{ cliente[9] }}">
                     </div>
                     <div class="form-group">
-                        <label for="txtnumfrecuente3" class="small">Número Frecuente 3: </label>
-                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente3" id="txtnumfrecuente3" value="{{ cliente[10] }}">
+                        <label for="txtnumfrecuente3" class="small label">Número Frecuente 3: </label>
+                        <input type="text" class="form-control form-control-sm" name="txtnumfrecuente3"
+                            id="txtnumfrecuente3" value="{{ cliente[10] }}">
                     </div>
 
-                    <button type="submit" class="btn btn-secondary btn-sm btn-block">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-secondary btn-sm btn-block label">Guardar Cambios</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     {% include 'footer.html' %}
 </body>
+
 </html>
-
-
-
-
