@@ -1,0 +1,132 @@
+/* General styles */
+body {
+
+    background: url("../fondoUbm.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "audiowide", serif;
+    max-width: 600px;
+    /* Ancho máximo del formulario */
+    width: 100%;
+    /* Ajusta al 100% dentro del contenedor */
+
+}
+
+.etiqueta {
+    text-align: left;
+    color: gray;
+    font-size: 13px;
+}
+
+
+.titulo {
+    font-family: "audiowide", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+}
+.encabezado{
+    font-family: "bebas neue", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.form-label {
+    font-size: 13px;
+}
+
+.btn-custom {
+    background-color: rgb(61, 61, 61);
+    /* Same color as in header for consistency */
+    color: white;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: none;
+
+    font-family: "Audiowide", serif;
+    font-weight: 400;
+    font-style: normal;
+
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for button lift */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button hover effect */
+.btn-custom:hover {
+    background-color: #0056b3;
+    /* Darker shade on hover */
+    transform: translateY(-2px);
+    /* Subtle upward lift on hover */
+}
+
+/* Button active effect for user feedback */
+.btn-custom:active {
+    background-color: #004494;
+    transform: translateY(0);
+}
+
+/* Flex container for buttons */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack buttons vertically for a minimalist look */
+    gap: 15px;
+    /* Spacing between buttons for better visibility */
+}
+
+header {
+    width: 100%;
+    background-color: rgba(61, 61, 61, 0.4);
+    /* Semi-transparent background for readability */
+    color: white;
+    padding-top: 15px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.5em;
+
+    font-family: "bebas neue", serif;
+    font-weight: 400;
+    font-style: normal;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    position: relative;
+
+}
+
+.header-logo {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    width: 60px;
+
+}
+
+.logo {
+    margin-bottom: 30px;
+    width: 200px;
+    /* Reduced logo size for better balance */
+}
+.progress-bar {
+    background-color: #28a745; /* Verde para indicar éxito */
+    transition: width 0.4s ease; /* Transición suave */
+}

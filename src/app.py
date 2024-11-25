@@ -2,10 +2,20 @@ import os
 from flask import Flask, jsonify, render_template, request, redirect, send_from_directory, url_for
 from flask_mysqldb import MySQL
 from werkzeug.utils import secure_filename
+from extensions import mail
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY', 'napoleon')
+print(f"SECRET_KEY cargada: {app.config['SECRET_KEY']}")
+
 mysql = MySQL(app)
+
+
 
 # Configurar la conexión a MySQL
 app.config['MYSQL_HOST'] = 'localhost'
@@ -15,7 +25,17 @@ app.config['MYSQL_DB'] = 'pasaportes'
 
 app.config['UPLOADS'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Servidor SMTP de Gmail
+app.config['MAIL_PORT'] = 587  # Puerto SMTP para TLS
+app.config['MAIL_USE_TLS'] = True  # TLS habilitado para seguridad
+app.config['MAIL_USERNAME'] = 'dmbruno61@gmail.com'  # Cambiar por tu correo
+app.config['MAIL_PASSWORD'] = 'nswpxemottqtkbut'  # Cambiar por tu contraseña
+app.config['MAIL_DEFAULT_SENDER'] = 'dmbruno61@gmail.com'
 
+mail.init_app(app)
+
+from mass_email import mass_email_bp
+app.register_blueprint(mass_email_bp)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -26,7 +46,9 @@ def uploads(filename):
     return send_from_directory(os.path.join('UPLOADS'), filename)
 
 
-
+@app.route('/mass_email')
+def mass_email():
+    return render_template('mass_email.html')
 
 @app.route('/')
 def index():
@@ -38,6 +60,7 @@ def ver_cliente(id):
     sql = "SELECT * FROM clientes WHERE id = %s"
     cur.execute(sql, (id,))
     cliente = cur.fetchone()
+
     cur.close()
     return render_template('clientes/cliente.html', cliente=cliente)
 
