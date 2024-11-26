@@ -28,9 +28,9 @@ app.config['UPLOADS'] = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Servidor SMTP de Gmail
 app.config['MAIL_PORT'] = 587  # Puerto SMTP para TLS
 app.config['MAIL_USE_TLS'] = True  # TLS habilitado para seguridad
-app.config['MAIL_USERNAME'] = 'dmbruno61@gmail.com'  # Cambiar por tu correo
+app.config['MAIL_USERNAME'] = 'ventas@ubmviajes.tur.ar'  # Cambiar por tu correo
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')  # Leer contraseña desde .env
-app.config['MAIL_DEFAULT_SENDER'] = 'dmbruno61@gmail.com'
+app.config['MAIL_DEFAULT_SENDER'] = 'ventas@ubmviajes.tur.ar'
 
 mail.init_app(app)
 

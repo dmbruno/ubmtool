@@ -34,9 +34,13 @@ def send_emails(app, file, subject, body, image_path):
         try:
             # Leer el archivo Excel
             df = pd.read_excel(file)
+            
+            # Normalizar los nombres de las columnas
+            df.columns = [col.strip().lower().replace(' ', '_') for col in df.columns]
 
             # Verificar que las columnas necesarias existen
-            if 'correo' not in df.columns or 'nombre' not in df.columns or 'apellido' not in df.columns:
+            required_columns = {'correo', 'nombre', 'apellido'}
+            if not required_columns.issubset(set(df.columns)):
                 print("El archivo Excel debe contener las columnas 'correo', 'nombre' y 'apellido'.")
                 return
 
