@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Muestra la barra de progreso
         progressBarContainer.style.display = 'block';
         progressBar.style.width = '0%';
-        progressBar.setAttribute('aria-valuenow', 0);
+        progressBar.setAttribute('audiowide', 0);
 
         const formData = new FormData(form);
 
