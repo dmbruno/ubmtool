@@ -193,7 +193,7 @@ def email_progress():
         global progress
         while progress < 100:
             print(f"Progreso actual en backend: {progress}")  # Depuración
-            time.sleep(0.5)  # Intervalo de actualización
+            time.sleep(0.1)  # Intervalo de actualización
             yield f"data:{progress}\n\n"
         progress = 0  # Reinicia el progreso al finalizar
     return Response(generate(), mimetype='text/event-stream')
